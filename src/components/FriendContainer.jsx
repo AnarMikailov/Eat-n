@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+import AddFriend from "./AddFriend";
 import FriendItem from "./FriendItem";
+
 const initialFriends = [
   {
     id: 118836,
@@ -22,21 +24,33 @@ const initialFriends = [
 ];
 
 const FriendContainer = () => {
+  const [addFriend, setAddFriend] = useState(false);
+  const [friends, setFriends] = useState(initialFriends);
+
   return (
     <>
       <div>
-        {initialFriends.map((item) => (
-          <>
-            <FriendItem
-              name={item.name}
-              img={item.image}
-              balance={item.balance}
-              key={item.id}
-              id={item.id}
-            />
-          </>
+        {friends.map((item) => (
+          <FriendItem
+            name={item.name}
+            img={item.image}
+            balance={item.balance}
+            key={item.id}
+            id={item.id}
+          />
         ))}
-        <button className="button">Add friend</button>
+
+        {addFriend ? (
+          <AddFriend
+            setAddFriend={setAddFriend}
+            friends={friends}
+            setFriends={setFriends}
+          />
+        ) : (
+          <button onClick={() => setAddFriend(true)} className="button">
+            Add friend
+          </button>
+        )}
       </div>
     </>
   );
